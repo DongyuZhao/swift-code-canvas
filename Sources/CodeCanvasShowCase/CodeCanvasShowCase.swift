@@ -1,24 +1,42 @@
-import Foundation
 import CodeCanvas
+import Foundation
 
 #if canImport(SwiftUI)
-import SwiftUI
+  import SwiftUI
 
-@main
-struct CodeCanvasShowCaseApp: App {
+  @main
+  struct CodeCanvasShowCaseApp: App {
+    #if os(macOS)
+      // Ensure the app shows in Dock, has menu bar, and supports full screen when launched as a SwiftPM executable
+      @NSApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
+    #endif
     var body: some Scene {
-        WindowGroup {
-            CodeCanvasView(initialText: "// CodeCanvas Showcase\nprint(\"Hello, world!\")\n")
-        }
+      WindowGroup {
+        CodeCanvas(
+          extensions: [
+            CodeCanvasExtension(name: "Editor", icon: "code", benches: [CodeEditorBench()]),
+            CodeCanvasExtension(name: "Restful", icon: "network", benches: [ClientRestfulBench()]),
+          ]
+        )
+      }
     }
-}
+  }
+  #if os(macOS)
+    import AppKit
+    final class AppDelegate: NSObject, NSApplicationDelegate {
+      func applicationDidFinishLaunching(_ notification: Notification) {
+        // Switch activation policy to regular so we have Dock icon and menu bar
+        NSApp.setActivationPolicy(.regular)
+        NSApp.activate(ignoringOtherApps: true)
+      }
+    }
+  #endif
 #else
-@main
-struct CodeCanvasShowCaseCLI {
+  @main
+  struct CodeCanvasShowCaseCLI {
     static func main() {
-        let doc = CodeDocument(text: "// CodeCanvas Showcase CLI\nprint(\"Hello, world!\")\n")
-        let tui = CodeCanvasTUI()
-        tui.start(with: doc)
+      let tui = CodeCanvas()
+      tui.start()
     }
-}
+  }
 #endif

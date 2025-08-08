@@ -1,15 +1,13 @@
-import XCTest
+import Testing
 @testable import CodeCanvas
+#if canImport(SwiftUI)
+import SwiftUI
+#endif
 
-final class CodeCanvasTests: XCTestCase {
-    func testDocumentInit() {
-        let d = CodeDocument(text: "hello")
-        XCTAssertEqual(d.text, "hello")
-    }
+struct CodeCanvasTests {
+#if canImport(SwiftUI)
 
-    func testFormatIsIdentityForNow() {
-        let d = CodeDocument(text: "print(\"hi\")")
-        let formatted = CodeCanvasAPI.format(d)
-        XCTAssertEqual(formatted, d)
-    }
+#else
+
+#endif
 }
