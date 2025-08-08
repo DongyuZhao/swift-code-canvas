@@ -4,19 +4,20 @@
 import PackageDescription
 
 let package = Package(
-    name: "CodeCanvas",
+    name: "CodeShell",
+    // Raised minimum platform versions to enable native editor (AppKit on macOS 15+, UIKit on iPadOS 18+)
     platforms: [
-        .iOS(.v17),
-        .macOS(.v14)
+        .iOS(.v18),
+        .macOS(.v15)
     ],
     products: [
         .library(
-            name: "CodeCanvas",
-            targets: ["CodeCanvas"]
+            name: "CodeShell",
+            targets: ["CodeShell"]
         ),
         .executable(
-            name: "CodeCanvasShowCase",
-            targets: ["CodeCanvasShowCase"]
+            name: "CodeShellShowCase",
+            targets: ["CodeShellShowCase"]
         ),
     ],
     dependencies: [
@@ -24,16 +25,16 @@ let package = Package(
     ],
     targets: [
         .target(
-            name: "CodeCanvas",
+            name: "CodeShell",
             dependencies: []
         ),
         .executableTarget(
-            name: "CodeCanvasShowCase",
-            dependencies: ["CodeCanvas"]
+            name: "CodeShellShowCase",
+            dependencies: ["CodeShell"]
         ),
         .testTarget(
-            name: "CodeCanvasTests",
-            dependencies: ["CodeCanvas"]
+            name: "CodeShellTests",
+            dependencies: ["CodeShell"]
         ),
 
     ],
