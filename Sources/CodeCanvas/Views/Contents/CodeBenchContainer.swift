@@ -4,6 +4,7 @@
   public struct CodeBenchContainer: View {
     private let benches: [CodeCanvasBench]
     @State private var selectedBench: (any CodeCanvasBench)?
+    @EnvironmentObject private var store: CodeCanvasStore
 
     public init(benches: [CodeCanvasBench]) {
         self.benches = benches
@@ -14,6 +15,7 @@
         HStack(spacing: 0) {
             CodeBenchSelector(benches: benches) { bench in
                 selectedBench = bench
+                store.clear()
             }
             .frame(maxHeight: .infinity)
 

@@ -1,4 +1,4 @@
-public struct CodeCanvasFile {
+public struct CodeCanvasFile: Identifiable {
     public let id: String
     public let name: String
     public let content: String
