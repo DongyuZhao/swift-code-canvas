@@ -1,3 +1,4 @@
+#if canImport(SwiftUI)
 public struct CodeCanvasExtension {
     public let name: String
     public let icon: String
@@ -9,3 +10,4 @@ public struct CodeCanvasExtension {
         self.benches = benches
     }
 }
+#endif
